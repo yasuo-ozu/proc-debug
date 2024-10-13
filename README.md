@@ -7,7 +7,7 @@
 [GitHub Actions]: https://github.com/yasuo-ozu/proc-debug/actions/workflows/rust.yml/badge.svg
 [actions]: https://github.com/yasuo-ozu/proc-debug/actions/workflows/rust.yml
 
-![Screenshot](url://raw.githubusercontent.com/yasuo-ozu/proc-debug/refs/heads/main/proc_debug.png)
+![Screenshot](//raw.githubusercontent.com/yasuo-ozu/proc-debug/refs/heads/main/proc_debug.png)
 
 ## Belief configuration
 
