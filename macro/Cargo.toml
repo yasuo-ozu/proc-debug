@@ -2,7 +2,12 @@
 name = "proc-debug-macro"
 description = "Dump proc-macro output for efficient debugging"
 version = "0.1.0"
+authors = ["Yasuo Ozu <yasuo@ozu.email>"]
 edition = "2021"
+repository = "https://github.com/yasuo-ozu/proc-debug"
+keywords = ["macros", "cargo", "pretty", "debug", "test"]
+categories = ["development-tools::procedural-macro-helpers", "development-tools::debugging"]
+license = "MIT"
 
 [lib]
 proc-macro = true
