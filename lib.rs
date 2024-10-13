@@ -1,5 +1,9 @@
+#![doc = include_str!("README.md")]
+
 use argp::FromArgs;
 use bat::PrettyPrinter;
+
+/// See module-level documentation
 pub use proc_debug_macro::proc_debug;
 use proc_macro2::{TokenStream, TokenTree};
 use std::collections::VecDeque;
@@ -234,13 +238,7 @@ fn show_macro_call(
     writeln!(std::io::stdout(), "",).unwrap();
 }
 
-pub fn show_macro_output(
-    modpath: &str,
-    macro_name: &str,
-    file: &str,
-    line: usize,
-    macro_output: &str,
-) {
+fn show_macro_output(modpath: &str, macro_name: &str, file: &str, line: usize, macro_output: &str) {
     print(|out| writeln!(out, "👉 output of {modpath}::{macro_name} ({file}:{line})",)).unwrap();
     let content = macro_output
         .split("\n")
