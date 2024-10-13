@@ -1,0 +1,27 @@
+[package]
+name = "proc-debug"
+description = "Dump proc-macro output for efficient debugging"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+proc-debug-macro = { path = "./macro", version = "0.1.0" }
+proc-state = "0.1.0" 
+bat = "0.24.0"
+proc-macro2 = "1.0"
+template-quote = "0.4"
+argp = "0.3.0"
+shtring = "0.1.0"
+termcolor = "1.4.0"
+
+[dependencies.syn]
+version = "2.0"
+features = [ "full", "derive", "printing", "extra-traits", "fold", "visit", "parsing"]
+
+[workspace]
+
+resolver = "2"
+members = [".", "macro"]
