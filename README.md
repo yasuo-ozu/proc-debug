@@ -7,7 +7,7 @@
 [GitHub Actions]: https://github.com/yasuo-ozu/proc-debug/actions/workflows/rust.yml/badge.svg
 [actions]: https://github.com/yasuo-ozu/proc-debug/actions/workflows/rust.yml
 
-![Screenshot](//raw.githubusercontent.com/yasuo-ozu/proc-debug/refs/heads/main/proc_debug.png)
+![Screenshot](https://raw.githubusercontent.com/yasuo-ozu/proc-debug/refs/heads/main/proc_debug.png)
 
 ## Belief configuration
 
@@ -26,7 +26,7 @@ proc-debug = "0.1"
 fn my_macro(attr: TokenStream, input: TokenStream) -> TokenStream { .. }
 ```
 
-- show help (--no-capture is important)
+- show help (--nocapture is important)
 
 ```bash
 $ PROC_DEBUG_FLAGS="--help" cargo build --test <test-name> -- --nocapture
