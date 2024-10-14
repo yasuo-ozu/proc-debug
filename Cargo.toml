@@ -20,7 +20,6 @@ bat = "0.24.0"
 proc-macro2 = "1.0"
 template-quote = "0.4"
 argp = "0.3.0"
-shtring = "0.1.0"
 termcolor = "1.4.0"
 
 [dependencies.syn]

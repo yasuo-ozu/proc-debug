@@ -279,10 +279,50 @@ struct ProcDebugArgs {
     verbose: bool,
 }
 
+fn split_args(s: &str) -> Vec<String> {
+    let mut it = s.chars().fuse();
+    let mut res = Vec::new();
+    let mut r = String::new();
+    while let Some(c) = it.next() {
+        match c {
+            '\\' => {
+                if let Some(c) = it.next() {
+                    r.push(c);
+                }
+            }
+            '"' | '\'' => {
+                let delim = c;
+                while let Some(c) = it.next() {
+                    match c {
+                        '\\' => {
+                            if let Some(c) = it.next() {
+                                r.push(c);
+                            }
+                        }
+                        c if c == delim => {
+                            res.push(r);
+                            r = String::new();
+                        }
+                        c => r.push(c),
+                    }
+                }
+            }
+            c if c.is_ascii_whitespace() => {
+                if r.len() > 0 {
+                    res.push(r);
+                    r = String::new();
+                }
+            }
+            c => r.push(c),
+        }
+    }
+    res
+}
+
 impl ProcDebugArgs {
     fn from_env() -> Option<Self> {
         let flags = std::env::var("PROC_DEBUG_FLAGS").ok()?;
-        let flags = shtring::split(&flags).ok()?;
+        let flags = split_args(&flags);
         Some(
             ProcDebugArgs::from_args(&["proc-debug"], &flags).unwrap_or_else(|early_exit| {
                 let mut stderr = StandardStream::stderr(ColorChoice::Always);
