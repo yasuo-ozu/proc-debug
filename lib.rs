@@ -279,6 +279,19 @@ struct ProcDebugArgs {
     verbose: bool,
 }
 
+#[test]
+fn test_split_args() {
+    assert_eq!(
+        split_args(r#"  --all  -a  ' b c ' " -d '' "  "#),
+        vec![
+            "--all".to_owned(),
+            "-a".to_owned(),
+            " b c ".to_owned(),
+            " -d '' ".to_owned()
+        ]
+    );
+}
+
 fn split_args(s: &str) -> Vec<String> {
     let mut it = s.chars().fuse();
     let mut res = Vec::new();
@@ -302,6 +315,7 @@ fn split_args(s: &str) -> Vec<String> {
                         c if c == delim => {
                             res.push(r);
                             r = String::new();
+                            break;
                         }
                         c => r.push(c),
                     }
@@ -315,6 +329,9 @@ fn split_args(s: &str) -> Vec<String> {
             }
             c => r.push(c),
         }
+    }
+    if r.len() > 0 {
+        res.push(r);
     }
     res
 }
