@@ -1,7 +1,7 @@
 [package]
 name = "proc-debug-macro"
 description = "Dump proc-macro output for efficient debugging"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Yasuo Ozu <yasuo@ozu.email>"]
 edition = "2021"
 repository = "https://github.com/yasuo-ozu/proc-debug"
