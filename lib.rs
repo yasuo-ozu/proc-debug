@@ -6,14 +6,11 @@ use bat::PrettyPrinter;
 /// See module-level documentation
 pub use proc_debug_macro::proc_debug;
 use proc_macro2::{TokenStream, TokenTree};
+use quote::{quote, quote_spanned, ToTokens};
 use std::collections::VecDeque;
-use std::sync::Mutex;
 use std::{io::Write, str::FromStr};
 use syn::*;
-use template_quote::{quote, quote_spanned, ToTokens};
 use termcolor::{Color, ColorChoice, ColorSpec, StandardStream, WriteColor};
-
-const COUNTER: proc_state::Global<Mutex<usize>> = proc_state::new!();
 
 fn print<R>(f: impl FnOnce(&mut StandardStream) -> R) -> R {
     let mut stdout = StandardStream::stdout(ColorChoice::Always);
@@ -272,9 +269,6 @@ struct ProcDebugArgs {
     /// depth to show in macro output
     #[argp(option, short = 'd')]
     depth: Option<usize>,
-    /// count to show in display
-    #[argp(option, short = 'c')]
-    count: Option<usize>,
     /// verbose
     #[argp(switch, short = 'v')]
     verbose: bool,
@@ -381,13 +375,10 @@ struct Entry<'a> {
 }
 
 impl<'a> Entry<'a> {
-    fn check_filter(&self, args: &ProcDebugArgs, n: usize) -> bool {
+    fn check_filter(&self, args: &ProcDebugArgs) -> bool {
         let content = [&self.label, &self.file, &self.modpath, &self.macro_name];
         let pattern = format!("{}::{}", &self.modpath, &self.macro_name);
 
-        if n > args.count.unwrap_or(usize::MAX) {
-            return false;
-        }
         if args.all {
             return true;
         }
@@ -414,13 +405,6 @@ impl<'a> Entry<'a> {
     }
 }
 
-fn count() -> usize {
-    let ctr = COUNTER.or_insert(Mutex::new(0));
-    let mut n = ctr.lock().unwrap();
-    *n += 1;
-    *n
-}
-
 #[doc(hidden)]
 pub fn proc_wrapper<F: FnOnce() -> TokenStream>(
     label: &str,
@@ -441,10 +425,9 @@ pub fn proc_wrapper<F: FnOnce() -> TokenStream>(
         macro_name,
         macro_inputs,
     };
-    let n = count();
     let ret = f();
     if let Some(args) = ProcDebugArgs::from_env() {
-        if entry.check_filter(&args, n) {
+        if entry.check_filter(&args) {
             show_macro_call(modpath, macro_name, file, line, macro_kind, macro_inputs);
             let tokens: TokenStream = ret.into();
             let output =
