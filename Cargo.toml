@@ -1,7 +1,7 @@
 [package]
 name = "proc-debug"
 description = "Dump proc-macro output for efficient debugging"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2021"
 authors = ["Yasuo Ozu <yasuo@ozu.email>"]
 repository = "https://github.com/yasuo-ozu/proc-debug"
@@ -14,7 +14,7 @@ license = "MIT"
 path = "lib.rs"
 
 [dependencies]
-proc-debug-macro = { path = "./macro", version = "0.1.4" }
+proc-debug-macro = { path = "./macro", version = "0.1.5" }
 bat = "0.24.0"
 proc-macro2 = "1.0"
 quote = "1.0.37"
