@@ -44,6 +44,7 @@ enum MacroKind {
     Function,
     Attribute,
     Derive,
+    Other,
 }
 
 impl FromStr for MacroKind {
@@ -54,7 +55,7 @@ impl FromStr for MacroKind {
             "function" => Ok(Self::Function),
             "attribute" => Ok(Self::Attribute),
             "derive" => Ok(Self::Derive),
-            _ => Err("Bad name"),
+            _ => Ok(Self::Other),
         }
     }
 }

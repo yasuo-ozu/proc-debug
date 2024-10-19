@@ -1,0 +1,24 @@
+[package]
+name = "cargo-proc-debug"
+description = "Dump proc-macro output for efficient debugging"
+version = "0.1.4"
+edition = "2021"
+authors = ["Yasuo Ozu <yasuo@ozu.email>"]
+repository = "https://github.com/yasuo-ozu/proc-debug"
+keywords = ["macros", "cargo", "pretty", "debug", "test"]
+categories = ["development-tools::cargo-plugins", "development-tools::debugging"]
+
+[[bin]]
+name = "cargo-proc-debug"
+path = "main.rs"
+
+[dependencies]
+cargo = "0.81.0"
+reqwest = { version = "0.11.0", features = ["blocking"] }
+zip = "2.2.0"
+anyhow = "1.0.90"
+comment = "=0.1.1"
+
+[dependencies.clap]
+version = "4"
+features = ["derive"]
