@@ -9,6 +9,49 @@
 
 ![Screenshot](https://raw.githubusercontent.com/yasuo-ozu/proc-debug/refs/heads/main/proc_debug.png)
 
+# Use proc-debug via CLI (recommended)
+
+```bash
+$ cargo install --path cargo
+...
+$ cargo proc-debug --help
+Usage: cargo proc-debug [OPTIONS] [KEYWORD]...
+
+Arguments:
+  [KEYWORD]...  keywords to filter debugging proc-macros
+
+Options:
+  -m, --manifest-path <PATH>  specify the manifest path for this library
+  -p, --package <PACKAGE>     debug macros called only from the specified packages
+      --lib                   debug macro calls only in this package's library
+      --bins                  debug macro calls in all bins
+      --bin <NAME>            debug macro calls only in specified binary
+      --examples              debug macro calls in all examples
+      --example <NAME>        debug macro calls only in specified example
+      --tests                 debug macro calls in library tests
+      --test <NAME>           debug macro calls only in specified test target
+      --benches               debug macro calls in all benches
+      --bench <NAME>          debug macro calls only in specified benchmark
+  -F, --features <FEATURES>   space or comma separated list of features to activate
+      --all-features          activate all available features
+      --no-default-features   do not activate the `default` feature
+  -v, --version               show version
+      --target <TARGET>       check for the target triple
+  -P, --path <PATH>           absolute (begins with '::') or partial path to filter debugging
+                              proc-macros
+      --verbose               do not omit longer outputs
+  -h, --help                  Print help
+
+# Run proc-debug in the crate dir, which calls proc macros
+$ cargo proc-debug --verbose
+👉 input of my_macro_crate::macro (macro/lib.rs:1008)
+...
+👉 output of my_macro_crate::macro (macro/lib.rs:1008)
+...
+```
+
+# Use proc-debug as a library
+
 ## Belief configuration
 
 - Cargo.toml
